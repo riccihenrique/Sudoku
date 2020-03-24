@@ -26,7 +26,8 @@ public class Sudoku extends Application {
         Scene scene = new Scene(root);
         
         stage.setScene(scene);
-        stage.setMaximized(true);
+        stage.setTitle("Soduku");
+        //stage.setMaximized(true);
         stage.show();
     }
 

@@ -32,6 +32,55 @@ public class Tabuleiro {
         }
     }
     
+    public List<Integer> getSubMatriz(int row, int col)
+    {
+        int index_rowIni, index_rowEnd, index_colIni, index_colEnd;
+        boolean flag = true;
+        
+        if(row == 0) { // 3 primeiras linhas
+            index_rowIni = 0;
+            index_rowEnd = 3;
+        }
+        else if(row == 1) { // 3 linhas do meio
+            index_rowIni = 3;
+            index_rowEnd = 6;
+        }
+        else { // 3 linhas do ultimo
+            index_rowIni = 6;
+            index_rowEnd = 9;
+        }
+        
+        if(col == 0) { // 3 primeiras colunas
+            index_colIni = 0;
+            index_colEnd = 3;
+        }
+        else if(col == 1) { // 3 colunas do meio
+            index_colIni = 3;
+            index_colEnd = 6;
+        }
+        else { // 3 colunas do fim
+            index_colIni = 6;
+            index_colEnd = 9;
+        }
+        
+        int a, b;
+        a=b=0;
+        List<Integer> mAux = new ArrayList<>();
+        
+        for(; index_rowIni < index_rowEnd; index_rowIni++) 
+        {
+            for(int j = index_colIni; j < index_colEnd; j++) 
+            {
+                mAux.add(board[index_rowIni][j]);
+                b++;
+            }    
+            b = 0;
+            a++;
+        }
+                
+        return mAux;
+    }
+    
     public boolean resolve() {
         List<Lacuna> l = getValNotExist();
         
