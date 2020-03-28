@@ -15,4 +15,4 @@ Por fim, o botão resolver traz a resolução do tabuleiro
 ![alt text](https://github.com/riccihenrique/Sudoku/blob/master/janela3.PNG)
 
 
-#DESENVOLVIDO EM CONJUNTO COM <a href="https://github.com/AlekOliveira">Alexandre Oliveira</a>
+## DESENVOLVIDO EM CONJUNTO COM <a href="https://github.com/AlekOliveira">Alexandre Oliveira</a>
