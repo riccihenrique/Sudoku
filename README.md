@@ -1,6 +1,6 @@
 # Sudoku
 
-Algoritmo para resolução de tabuleiros de sudoku de qualquer nível, utilizando a linguagem java.
+Por meio de recursividade e heurística, este trabalho foi desenvolvido para resolver tabuleiros diversos de sudoku utilizando a linguagem Java.
 
 O projeto permite a resolução de 4 tabuleiros pré definidos em diferentes níveis que são gerados aleatóriamente
 
