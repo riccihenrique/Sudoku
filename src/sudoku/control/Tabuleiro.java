@@ -35,7 +35,6 @@ public class Tabuleiro {
     public List<Integer> getSubMatriz(int row, int col)
     {
         int index_rowIni, index_rowEnd, index_colIni, index_colEnd;
-        boolean flag = true;
         
         if(row == 0) { // 3 primeiras linhas
             index_rowIni = 0;
@@ -64,13 +63,11 @@ public class Tabuleiro {
         }
         
         int a, b;
-        a=b=0;
+        a = b = 0;
         List<Integer> mAux = new ArrayList<>();
         
-        for(; index_rowIni < index_rowEnd; index_rowIni++) 
-        {
-            for(int j = index_colIni; j < index_colEnd; j++) 
-            {
+        for(; index_rowIni < index_rowEnd; index_rowIni++) {
+            for(int j = index_colIni; j < index_colEnd; j++) {
                 mAux.add(board[index_rowIni][j]);
                 b++;
             }    

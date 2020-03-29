@@ -11,12 +11,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableRow;
-import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import sudoku.control.Lacuna;
 import sudoku.control.Tabuleiro;
@@ -28,8 +23,6 @@ public class FXMLDocumentController implements Initializable {
     private Tabuleiro tabuleiro;
     private boolean podeResolver;
     private boolean inseriu;
-   
-    
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {    
@@ -37,80 +30,64 @@ public class FXMLDocumentController implements Initializable {
         podeResolver = false;                 
     }
     
-    public void limpaCelulas()
-    {
+    public void limpaCelulas() {
         int[][] mat = new int[9][9];        
         tabuleiro = new Tabuleiro(mat);
         exibeMatriz();
         
     }
     
-    
-    public void exibeMatriz()
-    {
+    public void exibeMatriz() {
         ObservableList<Node> filhosPainel = painel.getChildren();
         ObservableList<Node> celulas;
-        int i = 0, lin=0, col=0, cel = 0;
+        int i = 0, lin=0, col=0;
         
-        for (Node node : filhosPainel) 
-        {
-            if(node instanceof GridPane)
-            {
+        for (Node node : filhosPainel) {
+            if(node instanceof GridPane) {
                 celulas = ((GridPane)node).getChildren();//celulas mais internas
             
                 i = 0;
                 List<Integer> L = tabuleiro.getSubMatriz(lin, col);
-                for(Node c : celulas)
-                {
+                for(Node c : celulas) {
                     String s = L.get(i) == 0? "": L.get(i)+""; i++;                
                     ((TextField)c).setText(s);
 
                 }
-                if(col == 2)
-                {
+                if(col == 2) {
                     col = 0;
                     lin++;
                 }
-
                 else
                     col ++;
-                }            
+            }            
         }
     }
     
-    public void enviaDadosTabuleiro()
-    {
+    public void enviaDadosTabuleiro() {
         ObservableList<Node> filhosPainel = painel.getChildren();
         ObservableList<Node> celulas;
         int lin=0, col=0, cel = 0, lin2=0, col2=0;
         int[][] mat = new int[9][9];
         
-        
-        for (Node node : filhosPainel) 
-        {
-            if(node instanceof GridPane)
-            {
-                celulas = ((GridPane)node).getChildren();//celulas mais internas           
-                              
+        for (Node node : filhosPainel) {
+            if(node instanceof GridPane) {
+                celulas = ((GridPane)node).getChildren();//celulas mais internas     
                 
                 lin2 = lin*3;
                 col2 = col*3;
-                for(Node c : celulas)
-                {
+                for(Node c : celulas) {
                     String s =  ((TextField)c).getText();                    
                     mat[lin2][col2] = s.equals("")?0:Integer.parseInt(s);
                     
-                    if(col2 == 2 || col2 == 5 || col2 == 8)
-                    {
+                    if(col2 == 2 || col2 == 5 || col2 == 8) {
                         col2 = col*3;
                         lin2++;
                     }
                     else
                         col2++;
-                    }    
+                }    
             }
-            if(col == 2)
-            {
+            if(col == 2) {
                 col = 0;
                 lin++;
             }
@@ -120,28 +97,19 @@ public class FXMLDocumentController implements Initializable {
         tabuleiro = new Tabuleiro(mat);
     }
         
-    private void setEnable(boolean flag)
-    {
+    private void setEnable(boolean flag) {
         ObservableList<Node> filhosPainel = painel.getChildren();
         ObservableList<Node> celulas;
         
-        
-        
-        for (Node node : filhosPainel) 
-        {
-            if(node instanceof GridPane)
-            {
-                celulas = ((GridPane)node).getChildren();//celulas mais internas           
-                             
+        for (Node node : filhosPainel) {
+            if(node instanceof GridPane) {
+                celulas = ((GridPane)node).getChildren();//celulas mais internas        
                
                 for(Node c : celulas)
-                    ((TextField)c).setEditable(flag);                    
-             
+                    ((TextField)c).setEditable(flag); 
             }
         }
     }
-    
-    
     
     @FXML
     private void ClkBtAleatorio(ActionEvent event) {
@@ -159,14 +127,13 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     private void clkBtResolver(ActionEvent event) {
-        if(inseriu)
-        {
+        Alert alert = new Alert(AlertType.WARNING);
+        alert.setTitle("");
+        
+        if(inseriu) {
             enviaDadosTabuleiro();
             Lacuna lacuna = tabuleiro.validateTab();
-            if(lacuna != null)
-            {
-                Alert alert = new Alert(AlertType.WARNING);
-                alert.setTitle("");
+            if(lacuna != null) {                
                 alert.setContentText("Valor já existente na linha:"+(lacuna.getRow()+1)+" ou coluna:"+(lacuna.getCol()+1));
                 alert.show();
                 podeResolver = false;
@@ -175,20 +142,20 @@ public class FXMLDocumentController implements Initializable {
                 podeResolver = true;
         }        
         
-        if(podeResolver)
-        {
+        if(podeResolver) {
             setEnable(false);
-            tabuleiro.resolve();
-            exibeMatriz();
+            if(tabuleiro.resolve())
+                exibeMatriz();
+            else {
+                alert.setContentText("Impossível resolver este tabuleiro");
+                alert.show();
+            }
         }
-        
     }
 
     @FXML
     private void clkBtLimpar(ActionEvent event) {
         limpaCelulas();  
         podeResolver = false; 
-        
     }
-       
 }
