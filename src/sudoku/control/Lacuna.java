@@ -38,5 +38,3 @@ public class Lacuna {
         return str + "row: " + row + " col: " + col;
     }
 }
-
-
